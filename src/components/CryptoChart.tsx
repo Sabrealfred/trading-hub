@@ -1,3 +1,4 @@
+
 import TradingViewWidget from 'react-tradingview-widget';
 
 const CryptoChart = () => {

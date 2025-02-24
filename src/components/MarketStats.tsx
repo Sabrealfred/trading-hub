@@ -1,3 +1,4 @@
+
 import { ArrowUpIcon, ArrowDownIcon, TrendingUpIcon } from "lucide-react";
 
 const MarketStats = () => {
