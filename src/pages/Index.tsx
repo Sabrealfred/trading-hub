@@ -1,7 +1,9 @@
+
 import MarketStats from "@/components/MarketStats";
 import CryptoChart from "@/components/CryptoChart";
 import PortfolioCard from "@/components/PortfolioCard";
 import CryptoList from "@/components/CryptoList";
+import BalancesCard from "@/components/BalancesCard";
 
 const Index = () => {
   return (
@@ -22,6 +24,8 @@ const Index = () => {
             <PortfolioCard />
           </div>
         </div>
+
+        <BalancesCard />
         
         <CryptoList />
       </div>
