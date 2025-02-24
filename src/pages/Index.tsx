@@ -4,6 +4,7 @@ import CryptoChart from "@/components/CryptoChart";
 import PortfolioCard from "@/components/PortfolioCard";
 import CryptoList from "@/components/CryptoList";
 import BalancesCard from "@/components/BalancesCard";
+import TradingForm from "@/components/TradingForm";
 
 const Index = () => {
   return (
@@ -25,7 +26,14 @@ const Index = () => {
           </div>
         </div>
 
-        <BalancesCard />
+        <div className="grid grid-cols-1 lg:grid-cols-3 gap-8 mb-8">
+          <div className="lg:col-span-2">
+            <BalancesCard />
+          </div>
+          <div>
+            <TradingForm />
+          </div>
+        </div>
         
         <CryptoList />
       </div>
