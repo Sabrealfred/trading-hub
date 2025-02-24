@@ -1,4 +1,5 @@
-import { LineChart, Line, XAxis, YAxis, ResponsiveContainer, Tooltip } from "recharts";
+
+import { LineChart, Line, XAxis, YAxis, ResponsiveContainer, Tooltip, PieChart, Pie, Cell } from "recharts";
 import { useQuery } from "@tanstack/react-query";
 
 const fetchBitcoinPrices = async () => {
@@ -21,10 +22,18 @@ const PortfolioCard = () => {
     refetchInterval: 60000, // Refetch every minute
   });
 
+  // Mock portfolio distribution data
+  const portfolioDistribution = [
+    { name: 'BTC', value: 45, color: '#F7931A' },
+    { name: 'ETH', value: 30, color: '#627EEA' },
+    { name: 'XRP', value: 15, color: '#23292F' },
+    { name: 'Others', value: 10, color: '#8989DE' },
+  ];
+
   if (isLoading) {
     return (
       <div className="glass-card p-6 rounded-lg mb-8 animate-fade-in">
-        <h2 className="text-xl font-semibold mb-6">Bitcoin Performance</h2>
+        <h2 className="text-xl font-semibold mb-6">Portfolio Overview</h2>
         <div className="w-full h-[200px] flex items-center justify-center">
           <span className="text-muted-foreground">Loading...</span>
         </div>
@@ -32,9 +41,63 @@ const PortfolioCard = () => {
     );
   }
 
+  const totalValue = 125000; // Mock total portfolio value
+
   return (
     <div className="glass-card p-6 rounded-lg mb-8 animate-fade-in">
-      <h2 className="text-xl font-semibold mb-6">Bitcoin Performance</h2>
+      <div className="flex items-center justify-between mb-6">
+        <h2 className="text-xl font-semibold">Portfolio Overview</h2>
+        <span className="text-xl font-semibold">${totalValue.toLocaleString()}</span>
+      </div>
+
+      {/* Portfolio Distribution Pie Chart */}
+      <div className="w-full h-[200px] mb-8">
+        <ResponsiveContainer width="100%" height="100%">
+          <PieChart>
+            <Pie
+              data={portfolioDistribution}
+              cx="50%"
+              cy="50%"
+              innerRadius={60}
+              outerRadius={80}
+              paddingAngle={5}
+              dataKey="value"
+            >
+              {portfolioDistribution.map((entry, index) => (
+                <Cell key={`cell-${index}`} fill={entry.color} />
+              ))}
+            </Pie>
+            <Tooltip 
+              contentStyle={{ 
+                background: '#3A3935',
+                border: '1px solid #605F5B',
+                borderRadius: '8px'
+              }}
+              labelStyle={{ color: '#E6E4DD' }}
+              itemStyle={{ color: '#8989DE' }}
+            />
+          </PieChart>
+        </ResponsiveContainer>
+      </div>
+
+      {/* Portfolio Distribution Legend */}
+      <div className="grid grid-cols-2 gap-4 mb-8">
+        {portfolioDistribution.map((item) => (
+          <div key={item.name} className="flex items-center gap-2">
+            <div
+              className="w-3 h-3 rounded-full"
+              style={{ backgroundColor: item.color }}
+            />
+            <span className="text-sm">{item.name}</span>
+            <span className="text-sm text-muted-foreground ml-auto">
+              {item.value}%
+            </span>
+          </div>
+        ))}
+      </div>
+
+      {/* Portfolio Value Chart */}
+      <h3 className="text-lg font-semibold mb-4">Value History</h3>
       <div className="w-full h-[200px]">
         <ResponsiveContainer width="100%" height="100%">
           <LineChart data={priceData}>
