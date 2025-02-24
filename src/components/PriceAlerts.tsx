@@ -11,6 +11,12 @@ interface PriceAlert {
   active: boolean;
 }
 
+interface NewAlert {
+  symbol: string;
+  price: string;
+  condition: 'above' | 'below';  // Updated type definition here
+}
+
 const PriceAlerts = () => {
   const { toast } = useToast();
   const [alerts, setAlerts] = useState<PriceAlert[]>([
@@ -30,10 +36,10 @@ const PriceAlerts = () => {
     },
   ]);
 
-  const [newAlert, setNewAlert] = useState({
+  const [newAlert, setNewAlert] = useState<NewAlert>({  // Added proper type
     symbol: 'BTC',
     price: '',
-    condition: 'above' as const,
+    condition: 'above',
   });
 
   const handleAddAlert = (e: React.FormEvent) => {
